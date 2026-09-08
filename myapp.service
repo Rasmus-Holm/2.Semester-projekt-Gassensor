@@ -1,0 +1,19 @@
+# sudo nano /etc/systemd/system/myapp.service
+# https://docs.google.com/document/d/1T0LJUIzMYCq0uEBVcxKrkhziGCj5lGDvdeZsn_N7uUk/edit?tab=t.0
+
+[Unit]
+Description=cpp database connector start
+After=network.target
+
+[Service]
+# Replace 'pi' with your actual username
+User=oliver
+# Use the full path to your executable
+ExecStart=/home/oliver/code/Database_Connector_mqttPAHO_cmake/out/build/mqtt_sub
+# Restart the app automatically if it crashes
+Restart=always
+# Time to wait before restarting
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

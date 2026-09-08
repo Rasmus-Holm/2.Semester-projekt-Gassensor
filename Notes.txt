@@ -1,0 +1,48 @@
+# For questdb on pi, Docker needs to be started with correct command including ports correctly:
+
+sudo docker run --mount source=questdbvol,target=/app --name=questdb_boot --restart unless-stopped -p 9000:9000 -p 9009:9009 -p 8812:8812 -p 9003:9003 questdb/questdb:9.3.5
+
+
+# MariaDB skriver "Segmentation fault" Bare når der ikke er forbindelse, som hvis slukket database og fejler og lukker programmet.
+# questDB fortsætter men skriver "Error running saveToDatabase_questdb: Could not connect to "localhost:9009": Connection refused (os error 111)"
+
+
+
+
+
+Startup for cpp connector:
+path: sudo nano /etc/systemd/system/myapp.service
+sudo systemctl daemon-reload
+sudo systemctl enable myscript.service
+sudo systemctl start myscript.service
+
+
+Fra filen myapp.service (ligger som fil i aktiv mappe):
+
+[Unit]
+Description=cpp database connector start
+After=network.target
+
+[Service]
+# Replace 'pi' with your actual username
+User=oliver
+# Use the full path to your executable
+ExecStart=/home/oliver/code/Database_Connector_mqttPAHO_cmake/out/build/mqtt_sub
+# Restart the app automatically if it crashes
+Restart=always
+# Time to wait before restarting
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
+
+
+
+
+
+
+
+
+
+
+
